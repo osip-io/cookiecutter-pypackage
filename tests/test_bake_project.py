@@ -111,11 +111,6 @@ def test_bake_with_defaults(cookies):
         assert 'setup.cfg' in found_toplevel_files
         assert 'tests' in found_toplevel_files
 
-        mkdocs_yml = os.path.join(result._project_dir, "mkdocs.yml")
-        with open(mkdocs_yml, "r") as f:
-            lines = f.readlines()
-            assert '  - Home: index.md\n' in lines
-
 
 def test_bake_without_author_file(cookies):
     with bake_in_temp_dir(
@@ -126,12 +121,6 @@ def test_bake_without_author_file(cookies):
         assert 'AUTHORS.md' not in found_toplevel_files
         doc_files = [f.basename for f in result.project.join('docs').listdir()]
         assert 'authors.md' not in doc_files
-
-        # make sure '-authors: authors.md' not appeared in mkdocs.yml
-        mkdocs_yml = os.path.join(result._project_dir, "mkdocs.yml")
-        with open(mkdocs_yml, "r") as f:
-            lines = f.readlines()
-            assert '  - authors: authors.md\n' not in lines
 
 
 def test_docstrings_style(cookies):
